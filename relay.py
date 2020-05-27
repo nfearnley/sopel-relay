@@ -10,7 +10,7 @@ import functools
 import logging
 import re
 
-from sopel.module import rule, require_chanmsg
+from sopel.module import rule, require_chanmsg, unblockable
 from sopel.trigger import PreTrigger
 
 LOGGER = logging.getLogger("sopel.relay")
@@ -32,6 +32,7 @@ def require_user(*users):
 @require_chanmsg()
 @require_user("envoy")
 @rule(r"^<([^>]*)> (.*)$")
+@unblockable
 def keyword_match(bot, trigger):
     channel = trigger.sender
     nick, message = trigger.groups()
